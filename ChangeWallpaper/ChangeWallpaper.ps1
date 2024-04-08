@@ -2,38 +2,28 @@
 .NOTES
 	This script can be run as is with the provided execution file
 .DESCRIPTION 
-	This script will download a scary image and a scream sound effect hosted with this payload and host volume will be raised to max level
-	Upon running this script it will immediately pause after the downloads until a mouse movement is detected 
-	The capslock button will be pressed every 3 seconds to prevent sleep, and act as an indicator the payload is ready 
-	After a mouse movement is detected their wallpaper will change to the scary image provided and the scream sound effect will play
+	This script will download a scary image and set it as the wallpaper.
+	Upon running this script it will immediately pause after the downloads until a mouse movement is detected.
+	After a mouse movement is detected, the wallpaper will change to the scary image provided.
 #>
 
 ############################################################################################################################################################
 
 # Download Image; replace link to $image to add your own image
 
-$image =  "https://github.com/I-Am-Jakoby/hak5-submissions/raw/main/OMG/Payloads/OMG-JumpScare/jumpscare.png"
+$image =  "https://raw.githubusercontent.com/Not-Baily/Flipper-Shananas/main/ChangeWallpaper/Flip.png"
 
 $i = -join($image,"?dl=1")
 iwr $i -O $env:TMP\i.png
 
-iwr https://github.com/I-Am-Jakoby/hak5-submissions/raw/main/OMG/Payloads/OMG-JumpScare/jumpscare.png?dl=1 -O $env:TMP\i.png
-
-# Download WAV file; replace link to $wav to add your own sound
-
-$wav = "https://github.com/I-Am-Jakoby/hak5-submissions/blob/main/OMG/Payloads/OMG-JumpScare/female_scream.wav?raw=true"
-
-$w = -join($wav,"?dl=1")
-iwr $w -O $env:TMP\s.wav
-iwr "https://jakoby.lol/hak5" -EA 0 >$null
-
+iwr https://raw.githubusercontent.com/Not-Baily/Flipper-Shananas/main/ChangeWallpaper/Flip.png?dl=1 -O $env:TMP\i.png
 
 #----------------------------------------------------------------------------------------------------
 
 <#
 
 .NOTES 
-	This will take the image you downloaded and set it as the targets wall paper
+	This will take the image you downloaded and set it as the target's wallpaper
 #>
 
 Function Set-WallPaper {
@@ -138,17 +128,6 @@ $o=New-Object -ComObject WScript.Shell
 }
 
 #----------------------------------------------------------------------------------------------------
-<#
-
-.NOTES 
-	This is to play the WAV file
-#>
-
-function Play-WAV{
-$PlayWav=New-Object System.Media.SoundPlayer;$PlayWav.SoundLocation="$env:TMP\s.wav";$PlayWav.playsync()
-}
-
-#----------------------------------------------------------------------------------------------------
 
 # This turns the volume up to max level
 $k=[Math]::Ceiling(100/2);$o=New-Object -ComObject WScript.Shell;for($i = 0;$i -lt $k;$i++){$o.SendKeys([char] 175)}
@@ -157,7 +136,6 @@ $k=[Math]::Ceiling(100/2);$o=New-Object -ComObject WScript.Shell;for($i = 0;$i -
 
 Pause-Script
 Set-WallPaper -Image "$env:TMP\i.png" -Style Center
-Play-WAV
 
 #----------------------------------------------------------------------------------------------------
 
